@@ -6,8 +6,6 @@ import Text.Printf
 import Data.Maybe
 import Data.List(intercalate)
 import Control.Monad.State
-import Debug.Trace
-
 
 data WinState = Pending | Draw | Won Player deriving Eq
 
@@ -45,7 +43,7 @@ initState = let boardRange = ((0, 0), (2, 2)) in GameState
                 PlayerX
 
 instance Show GameState where
-    show (GameState board player) = 
+    show (GameState board _) = 
         let ((uRow, uCol), (dRow, dCol)) = bounds board
             -- nRow = dRow - uRow + 1
             -- nCol = dCol - uCol + 1

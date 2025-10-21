@@ -8,6 +8,7 @@ import Text.Read(readMaybe)
 import System.IO
 
 data Controller = Human | RandomBot | MinimaxBot deriving (Show, Enum)
+playerTypeSelection :: [Controller]
 playerTypeSelection = [Human, RandomBot, MinimaxBot]
 
 type Options a = (String, [a], String)
@@ -28,9 +29,9 @@ askSelect (startString, listOptions, endString) =
     let prependNum = map alignNum [1..]
         appendOption = map show listOptions
         optionsWithNum = zipWith (++) prependNum appendOption
-        lines = [startString] ++ optionsWithNum ++ [endString]
+        lineList = [startString] ++ optionsWithNum ++ [endString]
      in do
-            putStr $ foldr1 (\s t -> s ++ "\n" ++ t) lines
+            putStr $ foldr1 (\s t -> s ++ "\n" ++ t) lineList
             hFlush stdout
             n <- robustGetInt (`elem` [1..length listOptions])
             return $ listOptions !! (n - 1)
